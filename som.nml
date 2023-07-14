@@ -1,0 +1,34 @@
+!********************************************************************
+!
+! Self-Organizing Feature Map (SOFM or SOM) Analysis Namelist
+!
+!   Last updated : 19Aug2019
+!
+!********************************************************************
+
+&files
+  ifile="x.gdat",   ! file for input data (gdat, nd*nt)
+  wfile="som.gdat", ! file for output weight vectors (gdat, nd*m1*m2)
+  cfile="som.txt",  ! file for output clusters (txt)
+                    !   format -> sample clust1 clust2
+                    !   sample belongs to som grid (clust1, clust2)
+  nd=39,            ! input vector dimensions (integer value)
+  nt=44,            ! number of training samples (integer value)
+  m1=2, m2=3 /      ! output som grids (integer value)
+
+&somparameters
+  nter=5000,        ! maximum number of interations (integer value)
+                    !   typically more than 5000
+  nens=100,         ! number of ensembles for random initializations
+  alpha0=0.6,       ! initial learning rate (real value)
+                    !   typically 0.01<learning rate<0.6
+  taua=300.,        ! time constant for learning rate (real value)
+                    !   alpha=alpha0*EXP(-t/taua)
+                    !   if taua too large, weight vectors not converged
+  sigma0=1.5,       ! initial influence radius (real value)
+                    !   MAX(m1,m2)/2
+  taus=50.,         ! time constant for influence radius (real value)
+                    !   sigma=sigma0*EXP(-t/taus)
+                    !   if taus too large, weight vectors not converged
+                    !   if taus too small, neighborhood effects vanished
+  dw_tol=0.  /      ! tolerence value for the weight vector difference
